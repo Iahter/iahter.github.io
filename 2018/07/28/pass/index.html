@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="How to set up and use Pass with Git and xmonad (soon) integration.    GPG Setup    Install pass   pacman -S pass      Generate a gpg key   gpg --full-generate-keys   Stick with the defaults, request">
+<meta name="keywords" content="pass,gpg,git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to set up and use Pass">
+<meta property="og:url" content="https://iahter.gitlab.com/2018/07/28/pass/index.html">
+<meta property="og:site_name" content="Iahter">
+<meta property="og:description" content="How to set up and use Pass with Git and xmonad (soon) integration.    GPG Setup    Install pass   pacman -S pass      Generate a gpg key   gpg --full-generate-keys   Stick with the defaults, request">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-29T08:18:52.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to set up and use Pass">
+<meta name="twitter:description" content="How to set up and use Pass with Git and xmonad (soon) integration.    GPG Setup    Install pass   pacman -S pass      Generate a gpg key   gpg --full-generate-keys   Stick with the defaults, request">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/logoGlau.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/">
+          
+        
+    
+    <!-- title -->
+    <title>How to set up and use Pass</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://iahter.gitlab.com/2018/07/28/pass/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://iahter.gitlab.com/2018/07/28/pass/&text=How to set up and use Pass"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iahter.gitlab.com/2018/07/28/pass/&is_video=false&description=How to set up and use Pass"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How to set up and use Pass&body=Check out this article: https://iahter.gitlab.com/2018/07/28/pass/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://iahter.gitlab.com/2018/07/28/pass/&name=How to set up and use Pass&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#org06d810f"><span class="toc-number">1.</span> <span class="toc-text">GPG Setup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org1bc1db9"><span class="toc-number">1.1.</span> <span class="toc-text">Install pass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org52be5db"><span class="toc-number">1.2.</span> <span class="toc-text">Generate a gpg key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org0d73bbd"><span class="toc-number">1.3.</span> <span class="toc-text">Check if generation was sucessful</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#org7a73bba"><span class="toc-number">2.</span> <span class="toc-text">Initialize pass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#orgd3e03ff"><span class="toc-number">3.</span> <span class="toc-text">Git integration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org225729d"><span class="toc-number">3.1.</span> <span class="toc-text">Initialize the repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org71501ad"><span class="toc-number">3.2.</span> <span class="toc-text">Add the remote</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#org0fd7c45"><span class="toc-number">4.</span> <span class="toc-text">Copying and moving keys</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org6544f81"><span class="toc-number">4.1.</span> <span class="toc-text">Export secret key(s).</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org0e64630"><span class="toc-number">4.2.</span> <span class="toc-text">Export public key.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org74a6d8d"><span class="toc-number">4.3.</span> <span class="toc-text">Securely copy the files to the new machine.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org7509ad5"><span class="toc-number">4.4.</span> <span class="toc-text">Import private key on the new machine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org12e5433"><span class="toc-number">4.5.</span> <span class="toc-text">Import the public key on the new machine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org27673d1"><span class="toc-number">4.6.</span> <span class="toc-text">Check if import was successful</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org4e890c2"><span class="toc-number">4.7.</span> <span class="toc-text">Trust key</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#orgf81e9ce"><span class="toc-number">5.</span> <span class="toc-text">Git syncing with another machine</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org7ccad80"><span class="toc-number">5.1.</span> <span class="toc-text">Initialize pass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orgcf170b5"><span class="toc-number">5.2.</span> <span class="toc-text">Initialize the git repo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org695b587"><span class="toc-number">5.3.</span> <span class="toc-text">Add the remote</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orge313f9c"><span class="toc-number">5.4.</span> <span class="toc-text">Pull the existing passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org8d87cb2"><span class="toc-number">5.5.</span> <span class="toc-text">Additional commands</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#orgc198364"><span class="toc-number">6.</span> <span class="toc-text">Pass workflow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org34d901c"><span class="toc-number">6.1.</span> <span class="toc-text">List stored passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org2d72942"><span class="toc-number">6.2.</span> <span class="toc-text">Push passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orge9246d2"><span class="toc-number">6.3.</span> <span class="toc-text">Pull passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org79501f1"><span class="toc-number">6.4.</span> <span class="toc-text">Generate passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orga40da6d"><span class="toc-number">6.5.</span> <span class="toc-text">Copy password to clipboard</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orgccf9225"><span class="toc-number">6.6.</span> <span class="toc-text">Remove password</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        How to set up and use Pass
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Iahter</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-07-28T23:25:00.000Z" itemprop="datePublished">2018-07-28</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/git/">git</a>, <a class="tag-link" href="/tags/gpg/">gpg</a>, <a class="tag-link" href="/tags/pass/">pass</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <div id="content">
+<p>
+How to set up and use Pass with Git and xmonad (soon) integration.
+</p>
+
+<div id="outline-container-org06d810f" class="outline-2">
+<h2 id="org06d810f">GPG Setup</h2>
+<div class="outline-text-2" id="text-org06d810f">
+</div>
+<div id="outline-container-org1bc1db9" class="outline-3">
+<h3 id="org1bc1db9">Install pass</h3>
+<div class="outline-text-3" id="text-org1bc1db9">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pacman -S pass</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org52be5db" class="outline-3">
+<h3 id="org52be5db">Generate a gpg key</h3>
+<div class="outline-text-3" id="text-org52be5db">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --full-generate-keys</span><br></pre></td></tr></table></figure>
+</div>
+<p>
+Stick with the defaults, request 4096 bits if you want.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0d73bbd" class="outline-3">
+<h3 id="org0d73bbd">Check if generation was sucessful</h3>
+<div class="outline-text-3" id="text-org0d73bbd">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --list-keys</span><br></pre></td></tr></table></figure>
+</div>
+<p>
+You should see a relevant key.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7a73bba" class="outline-2">
+<h2 id="org7a73bba">Initialize pass</h2>
+<div class="outline-text-2" id="text-org7a73bba">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass init &lt;email used <span class="keyword">for</span> gpg key generation&gt;</span><br></pre></td></tr></table></figure>
+</div>
+<p>
+Example
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass init iahter@mailprovider.com</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd3e03ff" class="outline-2">
+<h2 id="orgd3e03ff">Git integration</h2>
+<div class="outline-text-2" id="text-orgd3e03ff">
+</div>
+<div id="outline-container-org225729d" class="outline-3">
+<h3 id="org225729d">Initialize the repository</h3>
+<div class="outline-text-3" id="text-org225729d">
+<div class="org-src-container">
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">pass git init</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org71501ad" class="outline-3">
+<h3 id="org71501ad">Add the remote</h3>
+<div class="outline-text-3" id="text-org71501ad">
+<div class="org-src-container">
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">pass git remote add origin &lt;remote name&gt;</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Example
+</p>
+<div class="org-src-container">
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">pass git remote add origin git@bitlab:Iahter/repo.git</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+At this point, pass has been fully set up.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0fd7c45" class="outline-2">
+<h2 id="org0fd7c45">Copying and moving keys</h2>
+<div class="outline-text-2" id="text-org0fd7c45">
+</div>
+<div id="outline-container-org6544f81" class="outline-3">
+<h3 id="org6544f81">Export secret key(s).</h3>
+<div class="outline-text-3" id="text-org6544f81">
+<p>
+You will be prompted for the password you specificed during gpg key generation.
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --export-secret-keys --armor &lt;email used <span class="keyword">for</span> gpg key&gt; &gt; privateKey.asc</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0e64630" class="outline-3">
+<h3 id="org0e64630">Export public key.</h3>
+<div class="outline-text-3" id="text-org0e64630">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --export <span class="operator">-a</span> iahter@protonmail.com &gt; publicKey.asc</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74a6d8d" class="outline-3">
+<h3 id="org74a6d8d">Securely copy the files to the new machine.</h3>
+</div>
+
+<div id="outline-container-org7509ad5" class="outline-3">
+<h3 id="org7509ad5">Import private key on the new machine</h3>
+<div class="outline-text-3" id="text-org7509ad5">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --import privateKey.asc</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org12e5433" class="outline-3">
+<h3 id="org12e5433">Import the public key on the new machine</h3>
+<div class="outline-text-3" id="text-org12e5433">
+<p>
+(Not needed if you have imported the private key)
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --import publicKey.asc</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org27673d1" class="outline-3">
+<h3 id="org27673d1">Check if import was successful</h3>
+<div class="outline-text-3" id="text-org27673d1">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --list-keys</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+<div id="outline-container-org4e890c2" class="outline-3">
+<h3 id="org4e890c2">Trust key</h3>
+<div class="outline-text-3" id="text-org4e890c2">
+<p>
+Make sure the key is yours again.
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --list-keys</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Trust the key
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --edit-key &lt;email associated with gpg key&gt;</span><br></pre></td></tr></table></figure>
+</div>
+<p>
+Type trust
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg&gt; trust</span><br></pre></td></tr></table></figure>
+</div>
+<p>
+Type 5 to give the key ultimate trust.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf81e9ce" class="outline-2">
+<h2 id="orgf81e9ce">Git syncing with another machine</h2>
+<div class="outline-text-2" id="text-orgf81e9ce">
+<p>
+The other machine should have your gpg private key.
+</p>
+</div>
+<div id="outline-container-org7ccad80" class="outline-3">
+<h3 id="org7ccad80">Initialize pass</h3>
+<div class="outline-text-3" id="text-org7ccad80">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass init &lt;email assocciated with gpg key&gt;</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcf170b5" class="outline-3">
+<h3 id="orgcf170b5">Initialize the git repo</h3>
+<div class="outline-text-3" id="text-orgcf170b5">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass git init</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org695b587" class="outline-3">
+<h3 id="org695b587">Add the remote</h3>
+<div class="outline-text-3" id="text-org695b587">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass git remote add origin &lt;remote name&gt;</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge313f9c" class="outline-3">
+<h3 id="orge313f9c">Pull the existing passwords</h3>
+<div class="outline-text-3" id="text-orge313f9c">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+<div id="outline-container-org8d87cb2" class="outline-3">
+<h3 id="org8d87cb2">Additional commands</h3>
+<div class="outline-text-3" id="text-org8d87cb2">
+<p>
+You may need to allow unrelated histories
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+You may need to set the upsteam branch
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Done.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc198364" class="outline-2">
+<h2 id="orgc198364">Pass workflow</h2>
+<div class="outline-text-2" id="text-orgc198364">
+</div>
+<div id="outline-container-org34d901c" class="outline-3">
+<h3 id="org34d901c">List stored passwords</h3>
+<div class="outline-text-3" id="text-org34d901c">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2d72942" class="outline-3">
+<h3 id="org2d72942">Push passwords</h3>
+<div class="outline-text-3" id="text-org2d72942">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass git push</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge9246d2" class="outline-3">
+<h3 id="orge9246d2">Pull passwords</h3>
+<div class="outline-text-3" id="text-orge9246d2">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass git pull</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org79501f1" class="outline-3">
+<h3 id="org79501f1">Generate passwords</h3>
+<div class="outline-text-3" id="text-org79501f1">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass generate &lt;passwordDirName/nameOfWebsite&gt; &lt;passwordLength&gt;</span><br></pre></td></tr></table></figure>
+</div>
+<p>
+Example
+</p>
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass generate Bank/bank.com <span class="number">400</span></span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga40da6d" class="outline-3">
+<h3 id="orga40da6d">Copy password to clipboard</h3>
+<div class="outline-text-3" id="text-orga40da6d">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass -c Bank/bank.com</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgccf9225" class="outline-3">
+<h3 id="orgccf9225">Remove password</h3>
+<div class="outline-text-3" id="text-orgccf9225">
+<div class="org-src-container">
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pass remove Bank/bank.com</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#org06d810f"><span class="toc-number">1.</span> <span class="toc-text">GPG Setup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org1bc1db9"><span class="toc-number">1.1.</span> <span class="toc-text">Install pass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org52be5db"><span class="toc-number">1.2.</span> <span class="toc-text">Generate a gpg key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org0d73bbd"><span class="toc-number">1.3.</span> <span class="toc-text">Check if generation was sucessful</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#org7a73bba"><span class="toc-number">2.</span> <span class="toc-text">Initialize pass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#orgd3e03ff"><span class="toc-number">3.</span> <span class="toc-text">Git integration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org225729d"><span class="toc-number">3.1.</span> <span class="toc-text">Initialize the repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org71501ad"><span class="toc-number">3.2.</span> <span class="toc-text">Add the remote</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#org0fd7c45"><span class="toc-number">4.</span> <span class="toc-text">Copying and moving keys</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org6544f81"><span class="toc-number">4.1.</span> <span class="toc-text">Export secret key(s).</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org0e64630"><span class="toc-number">4.2.</span> <span class="toc-text">Export public key.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org74a6d8d"><span class="toc-number">4.3.</span> <span class="toc-text">Securely copy the files to the new machine.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org7509ad5"><span class="toc-number">4.4.</span> <span class="toc-text">Import private key on the new machine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org12e5433"><span class="toc-number">4.5.</span> <span class="toc-text">Import the public key on the new machine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org27673d1"><span class="toc-number">4.6.</span> <span class="toc-text">Check if import was successful</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org4e890c2"><span class="toc-number">4.7.</span> <span class="toc-text">Trust key</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#orgf81e9ce"><span class="toc-number">5.</span> <span class="toc-text">Git syncing with another machine</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org7ccad80"><span class="toc-number">5.1.</span> <span class="toc-text">Initialize pass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orgcf170b5"><span class="toc-number">5.2.</span> <span class="toc-text">Initialize the git repo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org695b587"><span class="toc-number">5.3.</span> <span class="toc-text">Add the remote</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orge313f9c"><span class="toc-number">5.4.</span> <span class="toc-text">Pull the existing passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org8d87cb2"><span class="toc-number">5.5.</span> <span class="toc-text">Additional commands</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#orgc198364"><span class="toc-number">6.</span> <span class="toc-text">Pass workflow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#org34d901c"><span class="toc-number">6.1.</span> <span class="toc-text">List stored passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org2d72942"><span class="toc-number">6.2.</span> <span class="toc-text">Push passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orge9246d2"><span class="toc-number">6.3.</span> <span class="toc-text">Pull passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#org79501f1"><span class="toc-number">6.4.</span> <span class="toc-text">Generate passwords</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orga40da6d"><span class="toc-number">6.5.</span> <span class="toc-text">Copy password to clipboard</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orgccf9225"><span class="toc-number">6.6.</span> <span class="toc-text">Remove password</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://iahter.gitlab.com/2018/07/28/pass/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://iahter.gitlab.com/2018/07/28/pass/&text=How to set up and use Pass"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://iahter.gitlab.com/2018/07/28/pass/&is_video=false&description=How to set up and use Pass"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How to set up and use Pass&body=Check out this article: https://iahter.gitlab.com/2018/07/28/pass/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://iahter.gitlab.com/2018/07/28/pass/&title=How to set up and use Pass"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://iahter.gitlab.com/2018/07/28/pass/&name=How to set up and use Pass&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Iahter
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
